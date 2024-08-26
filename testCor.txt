@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+/* 
+
+https://www.messletters.com/pt/big-text/
+
+Azul: printf("\033[0;34m");
+
+Verde: printf("\033[0;32m");
+
+Amarelo: printf("\033[0;33m");
+
+Vermelho: printf("\033[0;31m");
+
+Magenta: printf("\033[0;35m");
+
+Ciano: printf("\033[0;36m");
+
+Branco: printf("\033[0;37m");
+
+Resetar Cor: printf("\033[0m"); (Volta à cor padrão do terminal) 
+*/
+
+int main(){
+
+  printf("\nHello World");
+
+  printf("\033[0;32m");
+  printf("\nHello World");
+
+  printf("\033[0;33m");
+  printf("\nHello World");
+
+  printf("\033[0m");
+  printf("\nHello World");
+
+
+
+  return 0;
+}
