@@ -17,4 +17,4 @@
   
 ### Aviso: O compilador do Replit tem alguns erros crassos, então cuidado, as vezes um erro pode ser devido ao compilador, e não o codigo (por isso criei as funções externas "image" e "iniciar")
 ### Aviso: Não confuna, "main" é o nome da branch principal de um codigo, no caso, o nome aqui é "jogoTermo.c", então ignore o arquivo com nome "main"
-### 
+### AVISO: IGNORE "main", "main-debug", ".gitginore", ".git", "Makefile", ".ccls-cache". Para todos os efeitos, as alterações devem ocorrer em "jogoTermo" e "palavras_validas(caso precise adcionar mais alguma palavra)"
