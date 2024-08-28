@@ -1,7 +1,7 @@
-compile = ["make", "-s"]
+compile = "make"
 run = "./main"
-entrypoint = "main.c"
 hidden = ["main", "main-debug", "**/*.o", "**/*.d", ".ccls-cache", "Makefile"]
+modules = ["c-clang14", "cpp-clang14", "nix"]
 
 [nix]
 channel = "stable-24_05"
@@ -66,3 +66,7 @@ pattern = "**/*.{c,h}"
 
 [languages.c.languageServer]
 start = "ccls"
+
+[deployment]
+run = ["sh", "-c", "./main"]
+build = ["sh", "-c", "make"]
