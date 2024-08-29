@@ -194,7 +194,7 @@ void iniciar(){
     printf("\033[0;33m");
       printf("\n> Eder Joe");
     printf("\033[0;32m");
-      printf("\n> João Viktor");
+      printf("\n> João Victor");
     printf("\033[0;33m");
       printf("\n> Bruno Marques\n\n");
     printf("\033[0m");
