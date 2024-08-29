@@ -19,4 +19,4 @@
 ### AVISO: IGNORE "main", "main-debug", ".gitginore", ".git", "Makefile", ".ccls-cache". Para todos os efeitos, as alterações devem ocorrer em "jogoTermo" e "palavras_validas(caso precise adcionar mais alguma palavra)"
 
 ## Avisos e Instruções Adicionais
-- As opções "push" e "pull" servem para "empurrar" e "puxar", isso se refere às alterações, 'empurrar' serve para atualizar as alterações, no caso, passar as suas alterações para o GitHub, e "puxar" serve para pegar a versão do codigo salva no GitHub e sobrescreve-la no Replit. Sincronizar faz os dois, então eu não recomendo usar, já que as alterações de outra pessoa podem interferir com as suas
+- As opções "push" e "pull" servem para "empurrar" e "puxar", isso se refere às alterações, 'empurrar' serve para atualizar as alterações, no caso, passar as suas alterações para o GitHub, e "puxar" serve para pegar a versão do codigo salva no GitHub e sobrescreve-la no Replit. Sincronizar("sync with Remote") faz os dois, então eu não recomendo usar, já que as alterações de outra pessoa podem interferir com as suas
