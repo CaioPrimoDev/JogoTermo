@@ -11,7 +11,7 @@
 // Incluindo o caractere nulo
 #define FILE_NAME "palavras_validas.txt"
 
-// ######################### Funções de decoração e jogabilidade #########################
+// ######################### Funções de decoração e jogabilidade ######################### 
 
 // Todas as imagens ASCII
 void imagem(int imagem){
@@ -443,15 +443,15 @@ int main() {
 
 
         for(int j = 0; j < strlen(output_word); j++){
-            printf("+---+ ");
+            printf("╔═══╗ "); //╚══╝ ╔═╗
         }
     printf("\n");
         for(int j = 0; j < strlen(output_word); j++){
-            printf("| %d | ", j + 1);
+            printf("║ %d ║ ", j + 1);
         }
     printf("\n");
         for(int j = 0; j < strlen(output_word); j++){
-            printf("+---+ ");
+            printf("╚═══╝ "); 
         }
 
         printf("\n");
@@ -542,7 +542,7 @@ int main() {
             allCorrect = validar(input_word, output_word, allCorrect, j);
 
             // Imprime a letra na horizontal
-            printf("+---+ ");
+            printf("╔═══╗ ");
         }
 
         printf("\n");
@@ -551,7 +551,7 @@ int main() {
 
             validar(input_word, output_word, allCorrect, j);
 
-            printf("| %c | ", input_word[j]);
+            printf("║ %d ║ ", input_word[j]);
         }
 
         printf("\n");
@@ -560,7 +560,7 @@ int main() {
 
             validar(input_word, output_word, allCorrect, j);
 
-            printf("+---+ ");
+            printf("╚═══╝ ");
         }
 
         printf("\033[0m"); // Reseta a cor
