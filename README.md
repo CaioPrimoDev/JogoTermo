@@ -6,7 +6,7 @@
  - Ao selecionar "Commit changes" sempre use a opção "Commit directly to the main branch"
 
 ## Incrementações necessarias
-- [ ] Incrementar uma lista (array/matriz) para registrar a variavel "input_word". Para que a cada loop, todas as palavras sejam impressas
+
 - [ ] Melhorar a validação das letras, pois quando a palavra aleatoria tem uma letra (S por exemplo), e a palavra (input_word) tem duas (S por exemplo), o codigo irá entender que há dois 'S', mesma que um deles já esteja na posição correta
 - [ ] Otimizar o codigo para evitar overflow
 - [ ] Melhorias estéticas
@@ -16,6 +16,7 @@
 
 ### IMPORTANTE
 - [ ] Fazer o programa suportar 2 arquivos (vou ver se suportar outro alem de .txt)
+- [ ] - [ ] Incrementar uma lista (array/matriz) para registrar a variavel "input_word". Para que a cada loop, todas as palavras sejam impressas
       
        > CaioPrimoDev
 
