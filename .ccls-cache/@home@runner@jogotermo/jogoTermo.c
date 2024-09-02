@@ -442,15 +442,15 @@ int main() {
     printf("\n");
 
 
-        for(int j = 0; j < strlen(output_word); j++){
+        for(int j = 0; j < tamanho; j++){
             printf("╔═══╗ "); //╚══╝ ╔═╗
         }
     printf("\n");
-        for(int j = 0; j < strlen(output_word); j++){
+        for(int j = 0; j < tamanho; j++){
             printf("║ %d ║ ", j + 1);
         }
     printf("\n");
-        for(int j = 0; j < strlen(output_word); j++){
+        for(int j = 0; j < tamanho; j++){
             printf("╚═══╝ "); 
         }
 
@@ -537,7 +537,7 @@ int main() {
 
         printf("\nPalavra formatada com cores:\n\n");
 
-        for (int j = 0; j < strlen(input_word); j++) {
+        for (int j = 0; j < tamanho; j++) {
 
             allCorrect = validar(input_word, output_word, allCorrect, j);
 
@@ -547,7 +547,7 @@ int main() {
 
         printf("\n");
 
-        for (int j = 0; j < strlen(input_word); j++) {
+        for (int j = 0; j < tamanho; j++) {
 
             validar(input_word, output_word, allCorrect, j);
 
@@ -556,7 +556,7 @@ int main() {
 
         printf("\n");
 
-        for (int j = 0; j < strlen(input_word); j++) {
+        for (int j = 0; j < tamanho; j++) {
 
             validar(input_word, output_word, allCorrect, j);
 
