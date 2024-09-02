@@ -173,16 +173,16 @@ void loading(){
 void iniciar(){
 
     printf("\033[0;32m\n");
-    printf("╔═══════════════════════════════════════════════════════════════════╗\n");
-    printf("║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║\n"); 
-    printf("║░░████████╗░░░░░███████╗░░░░░██████╗░░░░░░███╗░░░███╗░░░░░░█████╗░░║\n"); 
-    printf("║░░╚══██╔══╝░░░░░██╔════╝░░░░░██╔══██╗░░░░░████╗░████║░░░░░██╔══██╗░║\n"); 
-    printf("║░░░░░██║░░░░░░░░█████╗░░░░░░░██████╔╝░░░░░██╔████╔██║░░░░░██║░░██║░║\n");
-    printf("║░░░░░██║░░░░░░░░██╔══╝░░░░░░░██╔══██╗░░░░░██║╚██╔╝██║░░░░░██║░░██║░║\n"); 
-    printf("║░░░░░██║░░░░░░░░███████╗░░░░░██║░░██║░░░░░██║░╚═╝░██║░░░░░╚█████╔╝░║\n");
-    printf("║░░░░░╚═╝░░░░░░░░╚══════╝░░░░░╚═╝░░╚═╝░░░░░╚═╝░░░░░╚═╝░░░░░░╚════╝░░║\n");
-    printf("║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║\n");
-    printf("╚═══════════════════════════════════════════════════════════════════╝\n");
+    printf("                    ╔═══════════════════════════════════════════════════════════════════╗\n");
+    printf("                    ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║\n"); 
+    printf("                    ║░░████████╗░░░░░███████╗░░░░░██████╗░░░░░░███╗░░░███╗░░░░░░█████╗░░║\n"); 
+    printf("                    ║░░╚══██╔══╝░░░░░██╔════╝░░░░░██╔══██╗░░░░░████╗░████║░░░░░██╔══██╗░║\n"); 
+    printf("                    ║░░░░░██║░░░░░░░░█████╗░░░░░░░██████╔╝░░░░░██╔████╔██║░░░░░██║░░██║░║\n");
+    printf("                    ║░░░░░██║░░░░░░░░██╔══╝░░░░░░░██╔══██╗░░░░░██║╚██╔╝██║░░░░░██║░░██║░║\n"); 
+    printf("                    ║░░░░░██║░░░░░░░░███████╗░░░░░██║░░██║░░░░░██║░╚═╝░██║░░░░░╚█████╔╝░║\n");
+    printf("                    ║░░░░░╚═╝░░░░░░░░╚══════╝░░░░░╚═╝░░╚═╝░░░░░╚═╝░░░░░╚═╝░░░░░░╚════╝░░║\n");
+    printf("                    ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║\n");
+    printf("                    ╚═══════════════════════════════════════════════════════════════════╝\n");
     printf("\033[0m");                                            
 
     printf("\033[0;36m");
@@ -202,16 +202,19 @@ void iniciar(){
 }
 
 // Tela de seleção de modo de jogo
-int modoDeJogar() {
+int modoDeJogar(int escolha) {
 
-    int modo;
+    int opcao;
 
+    if(escolha != 5){
     iniciar();
 
       sleep(5);  // Pausa a execução por 5 segundos
-
+    }
+    
     system("clear");
 
+    if(escolha != 5)
     imagem(1);
 
     printf("\n\nRegras:\n1. Digite com o caps lock desativado.");
@@ -223,14 +226,16 @@ int modoDeJogar() {
     printf("\n\nIniciando jogo...");
     printf("\033[0m");
 
+    if(escolha != 5)
     sleep(7);  // Pausa a execução por 5 segundos
     system("clear");
 
+    if(escolha != 5)
     imagem(2);
 
     while(1){
        printf("\nSelecione o modo de jogo: \n1 - Jogo Normal\n2 - Modo Desenvolvedor\n... ");
-       if(scanf("%d", &modo) != 1 || modo < 1 || modo > 2){
+       if(scanf("%d", &opcao) != 1 || opcao < 1 || opcao > 2){
           printf("\033[0;31m");
           printf("\n\nErro: Selecione uma opção válida\n");
           printf("\033[0m"); // Reseta a cor
@@ -240,17 +245,15 @@ int modoDeJogar() {
            break;
     }
 
-    // NORMAL = '1'
-    // DESENVOLVEDOR = '2'
-
     system("clear");
 
-    loading();
+    
 
-    if(modo == 2){
-        return 1; // DESENVOLVEDOR
-    }else 
-        return 0; // NORMAL
+    if(opcao == 2){
+        return 20; // DESENVOLVEDOR
+    }else if(opcao == 1)
+        loading();
+        return 10; // NORMAL
 }
 
 // Tela de Fim de jogo (perdeu)
@@ -421,9 +424,22 @@ int main() {
     short int modoDeJogo;
     int tamanho;
     int tamanhoString;
+    int escolha = 5; // MODIFIQUE ISSO ANTES DE ENTREGAR O TRABALHO
 
-    modoDeJogo = modoDeJogar();
-    printf("%d", modoDeJogo);
+    if(escolha == 5) {
+        printf("\033[0;31m");
+        printf("\n- Apagar essa configuração depois");
+        printf("\nJogo funcionando sob condições de Desenvolvimento\n");
+        printf("\033[0m");
+    }
+
+    if(escolha == 5){
+        sleep(3);
+    }
+   
+    modoDeJogo = modoDeJogar(escolha);
+    // NORMAL = '10'
+    // DESENVOLVEDOR = '20'
 
     srand(time(NULL)); // Inicializa o gerador de números aleatórios
 
@@ -438,10 +454,11 @@ int main() {
     if (randomWord != NULL) {
         strncpy(output_word, randomWord, MAX_WORD_LENGTH - 1); // Garantir que não ocorra overflow
         output_word[MAX_WORD_LENGTH - 1] = '\0'; // Garantir a terminação nula
-        if(modoDeJogo){printf("Palavra aleatória selecionada: %s\n", output_word);}
+        if(modoDeJogo == 20){
+            printf("Palavra aleatória selecionada: %s\n", output_word);
+        }
         free(randomWord);
     }
-
 
     tamanho = strlen(output_word);
     printf("\n");
@@ -460,14 +477,6 @@ int main() {
         }
 
         printf("\n");
-
-
-    // Incrementar com loop for
-    int cont_words = 0;
-
-
-    // Corrigir isso
-    if(modoDeJogo != 1){system("clear");}
 
 
     for (int i = 0; i < MAX_WORDS; i++) {
