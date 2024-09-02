@@ -240,14 +240,17 @@ int modoDeJogar() {
            break;
     }
 
+    // NORMAL = '1'
+    // DESENVOLVEDOR = '2'
+
     system("clear");
 
     loading();
 
     if(modo == 2){
-        return 1;
+        return 1; // DESENVOLVEDOR
     }else 
-        return 0;
+        return 0; // NORMAL
 }
 
 // Tela de Fim de jogo (perdeu)
@@ -411,14 +414,16 @@ int main() {
 
     char words[MAX_WORDS][MAX_WORD_LENGTH];
     char input_word[MAX_WORD_LENGTH] = "";
-    char input_string[5];
+    char input_string[10];
     char output_word[MAX_WORD_LENGTH] = ""; // Inicializando para evitar lixo de memória
     char valid_word[MAX_WORD_LENGTH]; // dar utilidade para isso
     int found = 0;
-    int modoDeJogo;
+    short int modoDeJogo;
     int tamanho;
+    int tamanhoString;
 
     modoDeJogo = modoDeJogar();
+    printf("%d", modoDeJogo);
 
     srand(time(NULL)); // Inicializa o gerador de números aleatórios
 
@@ -467,10 +472,24 @@ int main() {
 
     for (int i = 0; i < MAX_WORDS; i++) {
 
+        while(1){
             printf("\nDigite uma palavra de %d letras: ", tamanho);
-            scanf("%s", input_string);
-            //fgets(input_word, sizeof(input_word), stdin);
+                scanf("%s", input_string);
+                //fgets(input_word, sizeof(input_word), stdin);
 
+            tamanhoString = strlen(input_string);
+            printf("tamanho = %d", tamanhoString);
+            if(tamanhoString < MAX_WORD_LENGTH - 1 || tamanhoString > MAX_WORD_LENGTH - 1){
+                printf("\033[0;31m");
+                printf("\nErro: A palavra precisa ter exatamente %d letras.\n\n", tamanho);
+                printf("\033[0m");
+                continue;
+            }
+            break;      
+        }
+            
+
+        
             // Devido a essa parte do codigo, a variavel input_word só é capaz de ler os 5 primeiros caracteres, não que isso seja ruim, uma vez que o parametro usado é MAX_WORD_LENGHT
             strncpy(input_word, input_string, MAX_WORD_LENGTH - 1);
             input_word[MAX_WORD_LENGTH - 1] = '\0';  // Certifique-se de que a string seja nula terminada
@@ -551,7 +570,7 @@ int main() {
 
             validar(input_word, output_word, allCorrect, j);
 
-            printf("║ %d ║ ", input_word[j]);
+            printf("║ %c ║ ", input_word[j]);
         }
 
         printf("\n");
