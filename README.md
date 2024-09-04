@@ -11,7 +11,8 @@
 - [ ] Otimizar o codigo para evitar overflow
 - [ ] Melhorias estéticas
 - [x] ~~Corrigir linha "459" " if(modoDeJogo != 1){system("clear");} " // queria que o console só fosse limpo no modo Jogo Normal~~
-- [ ] Incrementar validação para não registrar palavras repetidas 
+- [ ] Incrementar validação para não registrar palavras repetidas
+- [ ] Incrementar para que o console seja limpo de forma inteligente no modo de jogo NORMAL ( system('clear'); )
 - Basicamente,  a tela só deve ser limpa no modo normal, por que servirá como debugger
 - Adicione algo a lista caso tenha algum erro
 
