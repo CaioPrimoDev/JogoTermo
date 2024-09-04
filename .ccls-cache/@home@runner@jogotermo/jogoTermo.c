@@ -420,7 +420,7 @@ int main() {
     char input_word[MAX_WORD_LENGTH] = "";
     char input_string[10];
     char output_word[MAX_WORD_LENGTH] = ""; // Inicializando para evitar lixo de memória
-    char valid_word[MAX_WORD_LENGTH]; // dar utilidade para isso
+    char valid_word[MAX_WORD_LENGTH];
     int found = 0;
     short int modoDeJogo;
     int tamanho;
