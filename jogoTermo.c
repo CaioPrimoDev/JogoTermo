@@ -411,6 +411,7 @@ if(allCorrect == 1){
 } 
 // Por algum motiva fica dando aviso de algo errado, deve ser porque só ha 'return' sob condições
 
+
 int main() {
 
     // Iniciando o github
@@ -511,24 +512,7 @@ int main() {
         printf("\nString lida: '%s'\n", input_word);
         printf("Comprimento da string: %zu\n", strlen(input_word));
         }
-
-        if (strlen(input_word) < MAX_WORD_LENGTH - 1) {
-            printf("\033[0;31m");
-            printf("\nErro: A palavra precisa ter exatamente %d letras.\n\n", tamanho);
-            if(modoDeJogo){printf("MENOR\n");}
-            printf("\033[0m");                    
-            continue;
-        }
-
-        if (strlen(input_word) > MAX_WORD_LENGTH - 1) {
-            printf("\033[0;31m");
-            printf("\nErro: A palavra precisa ter exatamente %d letras.\n\n", tamanho);
-            if(modoDeJogo){printf("MAIOR\n");}
-            printf("\033[0m");                    
-            continue;
-        }
-
-
+        
 
         FILE *file = fopen(FILE_NAME, "r");
         if (file == NULL) {
@@ -553,6 +537,7 @@ int main() {
             words[i][MAX_WORD_LENGTH - 1] = '\0';
         } else {
             printf("'%s' não é uma palavra válida.\n", input_word);
+            i--;
             continue; // Se a palavra não for válida, vá para a próxima tentativa
         }
 
@@ -562,6 +547,19 @@ int main() {
 
         // Verifica se todas as letras estão na posição correta
         int allCorrect = 1;
+
+        // Registra a variavel input_word
+        char words_valid[MAX_WORDS][MAX_WORD_LENGTH];
+
+        int count = 0;
+        for (int i = 0; i < MAX_WORDS; i++) {
+                 strcpy(words_valid[count], words[i]);
+                 printf("(%d): %s\n",i,  words_valid[count]); // Imprime a palavra registrada
+                 count++;
+
+            
+        }
+        
 
         printf("\nPalavra formatada com cores:\n\n");
 
