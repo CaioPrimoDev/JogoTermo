@@ -18,6 +18,9 @@ Ciano: printf("\033[0;36m");
 
 Branco: printf("\033[0;37m");
 
+PRETO:  printf("\033[30mTexto em preto\033[0m\n");
+        printf("\033[30m");
+
 Resetar Cor: printf("\033[0m"); (Volta à cor padrão do terminal) 
 */
 

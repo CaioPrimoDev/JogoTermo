@@ -6,6 +6,8 @@
 #include <malloc.h>
 #include <unistd.h>
 
+// 1 para "EM DESENVOLVIMENTO"
+#define DEVELOPER 1
 #define MAX_WORDS 5 
 #define MAX_WORD_LENGTH 6  
 // Incluindo o caractere nulo
@@ -202,11 +204,11 @@ void iniciar(){
 }
 
 // Tela de seleção de modo de jogo
-int modoDeJogar(int escolha) {
+int modoDeJogar() {
 
     int opcao;
 
-    if(escolha != 5){
+    if(DEVELOPER != 1){
     iniciar();
 
       sleep(5);  // Pausa a execução por 5 segundos
@@ -214,7 +216,7 @@ int modoDeJogar(int escolha) {
     
     system("clear");
 
-    if(escolha != 5)
+    if(DEVELOPER != 1)
     imagem(1);
 
     printf("\n\nRegras:\n1. Digite com o caps lock desativado.");
@@ -226,11 +228,11 @@ int modoDeJogar(int escolha) {
     printf("\n\nIniciando jogo...");
     printf("\033[0m");
 
-    if(escolha != 5)
+    if(DEVELOPER != 1)
     sleep(7);  // Pausa a execução por 5 segundos
     system("clear");
 
-    if(escolha != 5)
+    if(DEVELOPER != 1)
     imagem(2);
 
     while(1){
@@ -251,9 +253,12 @@ int modoDeJogar(int escolha) {
 
     if(opcao == 2){
         return 20; // DESENVOLVEDOR
-    }else if(opcao == 1)
+    }else if(opcao == 1){
+        if(DEVELOPER != 1)
         loading();
         return 10; // NORMAL
+    }
+        
 }
 
 // Tela de Fim de jogo (perdeu)
@@ -399,7 +404,7 @@ char validar(char input_word[MAX_WORD_LENGTH], char output_word[MAX_WORD_LENGTH]
         printf("\033[0;33m");  // Amarelo para letras que estão na palavra, mas em posição diferente
         allCorrect = 0;
     } else {
-        printf("\033[0;37m");  // Branco para letras que não estão na palavra
+        printf("\033[30m");  // PRETO para letras que não estão na palavra
         allCorrect = 0;
     }
 
@@ -427,18 +432,18 @@ int main() {
     int tamanhoString;
     int escolha = 5; // MODIFIQUE ISSO ANTES DE ENTREGAR O TRABALHO
 
-    if(escolha == 5) {
+    if(DEVELOPER) {
         printf("\033[0;31m");
         printf("\n- Apagar essa configuração depois");
         printf("\nJogo funcionando sob condições de Desenvolvimento\n");
         printf("\033[0m");
     }
 
-    if(escolha == 5){
+    if(DEVELOPER){
         sleep(3);
     }
    
-    modoDeJogo = modoDeJogar(escolha);
+    modoDeJogo = modoDeJogar();
     // NORMAL = '10'
     // DESENVOLVEDOR = '20'
 

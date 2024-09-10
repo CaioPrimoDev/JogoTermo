@@ -6,12 +6,14 @@
 #include <malloc.h>
 #include <unistd.h>
 
+// 1 para "EM DESENVOLVIMENTO"
+#define DEVELOPER 1
 #define MAX_WORDS 5 
 #define MAX_WORD_LENGTH 6  
 // Incluindo o caractere nulo
 #define FILE_NAME "palavras_validas.txt"
 
-// ######################### Funções de decoração e jogabilidade #########################
+// ######################### Funções de decoração e jogabilidade ######################### 
 
 // Todas as imagens ASCII
 void imagem(int imagem){
@@ -173,16 +175,16 @@ void loading(){
 void iniciar(){
 
     printf("\033[0;32m\n");
-    printf("╔═══════════════════════════════════════════════════════════════════╗\n");
-    printf("║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║\n"); 
-    printf("║░░████████╗░░░░░███████╗░░░░░██████╗░░░░░░███╗░░░███╗░░░░░░█████╗░░║\n"); 
-    printf("║░░╚══██╔══╝░░░░░██╔════╝░░░░░██╔══██╗░░░░░████╗░████║░░░░░██╔══██╗░║\n"); 
-    printf("║░░░░░██║░░░░░░░░█████╗░░░░░░░██████╔╝░░░░░██╔████╔██║░░░░░██║░░██║░║\n");
-    printf("║░░░░░██║░░░░░░░░██╔══╝░░░░░░░██╔══██╗░░░░░██║╚██╔╝██║░░░░░██║░░██║░║\n"); 
-    printf("║░░░░░██║░░░░░░░░███████╗░░░░░██║░░██║░░░░░██║░╚═╝░██║░░░░░╚█████╔╝░║\n");
-    printf("║░░░░░╚═╝░░░░░░░░╚══════╝░░░░░╚═╝░░╚═╝░░░░░╚═╝░░░░░╚═╝░░░░░░╚════╝░░║\n");
-    printf("║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║\n");
-    printf("╚═══════════════════════════════════════════════════════════════════╝\n");
+    printf("                    ╔═══════════════════════════════════════════════════════════════════╗\n");
+    printf("                    ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║\n"); 
+    printf("                    ║░░████████╗░░░░░███████╗░░░░░██████╗░░░░░░███╗░░░███╗░░░░░░█████╗░░║\n"); 
+    printf("                    ║░░╚══██╔══╝░░░░░██╔════╝░░░░░██╔══██╗░░░░░████╗░████║░░░░░██╔══██╗░║\n"); 
+    printf("                    ║░░░░░██║░░░░░░░░█████╗░░░░░░░██████╔╝░░░░░██╔████╔██║░░░░░██║░░██║░║\n");
+    printf("                    ║░░░░░██║░░░░░░░░██╔══╝░░░░░░░██╔══██╗░░░░░██║╚██╔╝██║░░░░░██║░░██║░║\n"); 
+    printf("                    ║░░░░░██║░░░░░░░░███████╗░░░░░██║░░██║░░░░░██║░╚═╝░██║░░░░░╚█████╔╝░║\n");
+    printf("                    ║░░░░░╚═╝░░░░░░░░╚══════╝░░░░░╚═╝░░╚═╝░░░░░╚═╝░░░░░╚═╝░░░░░░╚════╝░░║\n");
+    printf("                    ║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║\n");
+    printf("                    ╚═══════════════════════════════════════════════════════════════════╝\n");
     printf("\033[0m");                                            
 
     printf("\033[0;36m");
@@ -204,14 +206,17 @@ void iniciar(){
 // Tela de seleção de modo de jogo
 int modoDeJogar() {
 
-    int modo;
+    int opcao;
 
+    if(DEVELOPER != 1){
     iniciar();
 
       sleep(5);  // Pausa a execução por 5 segundos
-
+    }
+    
     system("clear");
 
+    if(DEVELOPER != 1)
     imagem(1);
 
     printf("\n\nRegras:\n1. Digite com o caps lock desativado.");
@@ -223,14 +228,16 @@ int modoDeJogar() {
     printf("\n\nIniciando jogo...");
     printf("\033[0m");
 
+    if(DEVELOPER != 1)
     sleep(7);  // Pausa a execução por 5 segundos
     system("clear");
 
+    if(DEVELOPER != 1)
     imagem(2);
 
     while(1){
        printf("\nSelecione o modo de jogo: \n1 - Jogo Normal\n2 - Modo Desenvolvedor\n... ");
-       if(scanf("%d", &modo) != 1 || modo < 1 || modo > 2){
+       if(scanf("%d", &opcao) != 1 || opcao < 1 || opcao > 2){
           printf("\033[0;31m");
           printf("\n\nErro: Selecione uma opção válida\n");
           printf("\033[0m"); // Reseta a cor
@@ -242,12 +249,16 @@ int modoDeJogar() {
 
     system("clear");
 
-    loading();
+    
 
-    if(modo == 2){
-        return 1;
-    }else 
-        return 0;
+    if(opcao == 2){
+        return 20; // DESENVOLVEDOR
+    }else if(opcao == 1){
+        if(DEVELOPER != 1)
+        loading();
+        return 10; // NORMAL
+    }
+        
 }
 
 // Tela de Fim de jogo (perdeu)
@@ -393,7 +404,7 @@ char validar(char input_word[MAX_WORD_LENGTH], char output_word[MAX_WORD_LENGTH]
         printf("\033[0;33m");  // Amarelo para letras que estão na palavra, mas em posição diferente
         allCorrect = 0;
     } else {
-        printf("\033[0;37m");  // Branco para letras que não estão na palavra
+        printf("\033[30m");  // PRETO para letras que não estão na palavra
         allCorrect = 0;
     }
 
@@ -405,20 +416,36 @@ if(allCorrect == 1){
 } 
 // Por algum motiva fica dando aviso de algo errado, deve ser porque só ha 'return' sob condições
 
+
 int main() {
 
     // Iniciando o github
 
     char words[MAX_WORDS][MAX_WORD_LENGTH];
     char input_word[MAX_WORD_LENGTH] = "";
-    char input_string[5];
+    char input_string[10];
     char output_word[MAX_WORD_LENGTH] = ""; // Inicializando para evitar lixo de memória
     char valid_word[MAX_WORD_LENGTH];
     int found = 0;
-    int modoDeJogo;
+    short int modoDeJogo;
     int tamanho;
+    int tamanhoString;
+    int escolha = 5; // MODIFIQUE ISSO ANTES DE ENTREGAR O TRABALHO
 
+    if(DEVELOPER) {
+        printf("\033[0;31m");
+        printf("\n- Apagar essa configuração depois");
+        printf("\nJogo funcionando sob condições de Desenvolvimento\n");
+        printf("\033[0m");
+    }
+
+    if(DEVELOPER){
+        sleep(3);
+    }
+   
     modoDeJogo = modoDeJogar();
+    // NORMAL = '10'
+    // DESENVOLVEDOR = '20'
 
     srand(time(NULL)); // Inicializa o gerador de números aleatórios
 
@@ -433,44 +460,51 @@ int main() {
     if (randomWord != NULL) {
         strncpy(output_word, randomWord, MAX_WORD_LENGTH - 1); // Garantir que não ocorra overflow
         output_word[MAX_WORD_LENGTH - 1] = '\0'; // Garantir a terminação nula
-        if(modoDeJogo){printf("Palavra aleatória selecionada: %s\n", output_word);}
+        if(modoDeJogo == 20){
+            printf("Palavra aleatória selecionada: %s\n", output_word);
+        }
         free(randomWord);
     }
-
 
     tamanho = strlen(output_word);
     printf("\n");
 
 
-        for(int j = 0; j < strlen(output_word); j++){
-            printf("+---+ ");
+        for(int j = 0; j < tamanho; j++){
+            printf("╔═══╗ "); //╚══╝ ╔═╗
         }
     printf("\n");
-        for(int j = 0; j < strlen(output_word); j++){
-            printf("| %d | ", j + 1);
+        for(int j = 0; j < tamanho; j++){
+            printf("║ %d ║ ", j + 1);
         }
     printf("\n");
-        for(int j = 0; j < strlen(output_word); j++){
-            printf("+---+ ");
+        for(int j = 0; j < tamanho; j++){
+            printf("╚═══╝ "); 
         }
 
         printf("\n");
 
 
-    // Incrementar com loop for
-    int cont_words = 0;
-
-
-    // Corrigir isso
-    if(modoDeJogo != 1){system("clear");}
-
-
     for (int i = 0; i < MAX_WORDS; i++) {
 
+        while(1){
             printf("\nDigite uma palavra de %d letras: ", tamanho);
-            scanf("%s", input_string);
-            //fgets(input_word, sizeof(input_word), stdin);
+                scanf("%s", input_string);
+                //fgets(input_word, sizeof(input_word), stdin);
 
+            tamanhoString = strlen(input_string);
+            printf("tamanho = %d", tamanhoString);
+            if(tamanhoString < MAX_WORD_LENGTH - 1 || tamanhoString > MAX_WORD_LENGTH - 1){
+                printf("\033[0;31m");
+                printf("\nErro: A palavra precisa ter exatamente %d letras.\n\n", tamanho);
+                printf("\033[0m");
+                continue;
+            }
+            break;      
+        }
+            
+
+        
             // Devido a essa parte do codigo, a variavel input_word só é capaz de ler os 5 primeiros caracteres, não que isso seja ruim, uma vez que o parametro usado é MAX_WORD_LENGHT
             strncpy(input_word, input_string, MAX_WORD_LENGTH - 1);
             input_word[MAX_WORD_LENGTH - 1] = '\0';  // Certifique-se de que a string seja nula terminada
@@ -483,24 +517,7 @@ int main() {
         printf("\nString lida: '%s'\n", input_word);
         printf("Comprimento da string: %zu\n", strlen(input_word));
         }
-
-        if (strlen(input_word) < MAX_WORD_LENGTH - 1) {
-            printf("\033[0;31m");
-            printf("\nErro: A palavra precisa ter exatamente %d letras.\n\n", tamanho);
-            if(modoDeJogo){printf("MENOR\n");}
-            printf("\033[0m");                    
-            continue;
-        }
-
-        if (strlen(input_word) > MAX_WORD_LENGTH - 1) {
-            printf("\033[0;31m");
-            printf("\nErro: A palavra precisa ter exatamente %d letras.\n\n", tamanho);
-            if(modoDeJogo){printf("MAIOR\n");}
-            printf("\033[0m");                    
-            continue;
-        }
-
-
+        
 
         FILE *file = fopen(FILE_NAME, "r");
         if (file == NULL) {
@@ -525,6 +542,7 @@ int main() {
             words[i][MAX_WORD_LENGTH - 1] = '\0';
         } else {
             printf("'%s' não é uma palavra válida.\n", input_word);
+            i--;
             continue; // Se a palavra não for válida, vá para a próxima tentativa
         }
 
@@ -535,32 +553,45 @@ int main() {
         // Verifica se todas as letras estão na posição correta
         int allCorrect = 1;
 
+        // Registra a variavel input_word
+        char words_valid[MAX_WORDS][MAX_WORD_LENGTH];
+
+        int count = 0;
+        for (int i = 0; i < MAX_WORDS; i++) {
+                 strcpy(words_valid[count], words[i]);
+                 printf("(%d): %s\n",i,  words_valid[count]); // Imprime a palavra registrada
+                 count++;
+
+            
+        }
+        
+
         printf("\nPalavra formatada com cores:\n\n");
 
-        for (int j = 0; j < strlen(input_word); j++) {
+        for (int j = 0; j < tamanho; j++) {
 
             allCorrect = validar(input_word, output_word, allCorrect, j);
 
             // Imprime a letra na horizontal
-            printf("+---+ ");
+            printf("╔═══╗ ");
         }
 
         printf("\n");
 
-        for (int j = 0; j < strlen(input_word); j++) {
+        for (int j = 0; j < tamanho; j++) {
 
             validar(input_word, output_word, allCorrect, j);
 
-            printf("| %c | ", input_word[j]);
+            printf("║ %c ║ ", input_word[j]);
         }
 
         printf("\n");
 
-        for (int j = 0; j < strlen(input_word); j++) {
+        for (int j = 0; j < tamanho; j++) {
 
             validar(input_word, output_word, allCorrect, j);
 
-            printf("+---+ ");
+            printf("╚═══╝ ");
         }
 
         printf("\033[0m"); // Reseta a cor
