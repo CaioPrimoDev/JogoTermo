@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <ctype.h>
+#include <string.h> // Para a função strlen()
+#include <time.h>   // Para função sleep()
+#include <ctype.h>  // Para a função toupper()
 #include <malloc.h>
 #include <unistd.h>
 
@@ -213,7 +213,7 @@ int modoDeJogar() {
 
       sleep(5);  // Pausa a execução por 5 segundos
     }
-    
+
     system("clear");
 
     if(DEVELOPER != 1)
@@ -249,7 +249,7 @@ int modoDeJogar() {
 
     system("clear");
 
-    
+
 
     if(opcao == 2){
         return 20; // DESENVOLVEDOR
@@ -258,7 +258,7 @@ int modoDeJogar() {
         loading();
         return 10; // NORMAL
     }
-        
+
 }
 
 // Tela de Fim de jogo (perdeu)
@@ -378,43 +378,63 @@ char *getRandomWordFromFile(const char *filename, int wordCount) {
     return randomWord;
 }
 
-// Função para converter string para maiúsculas
-void toUpperCase(char *str) {
-    for (int i = 0; str[i]; i++) {
-        str[i] = toupper(str[i]);
+// Conta a frequencia de letras repitidas numa palavra
+void contarFrequencia(char word[MAX_WORD_LENGTH], int freq[26]) {
+    for (int i = 0; i < 26; i++) {
+        freq[i] = 0; // Inicializa o array de frequências
     }
-}
-
-// Função para verificar se uma letra está na palavra em qualquer posição diferente da correta
-int isLetterInWord(char letter, const char *word) {
-    for (int i = 0; i < strlen(word); i++) {
-        if (word[i] == letter) {
-            return 1;
+    for (int i = 0; i < MAX_WORD_LENGTH - 1; i++) {
+        if (isalpha(word[i])) {
+            freq[toupper(word[i]) - 'A']++;
         }
     }
-    return 0;
 }
 
-// Função para validar a variavel input_word
-char validar(char input_word[MAX_WORD_LENGTH], char output_word[MAX_WORD_LENGTH],int allCorrect, int j){
-
-    if (input_word[j] == output_word[j]) {
-        printf("\033[0;32m");  // Verde para letras corretas na posição correta
-    } else if (isLetterInWord(input_word[j], output_word)) {
-        printf("\033[0;33m");  // Amarelo para letras que estão na palavra, mas em posição diferente
-        allCorrect = 0;
-    } else {
-        printf("\033[30m");  // PRETO para letras que não estão na palavra
-        allCorrect = 0;
+void validarIguais(char input[MAX_WORD_LENGTH], char output[MAX_WORD_LENGTH], char temp[MAX_WORD_LENGTH], int *allCorrect) {
+    *allCorrect = 1; // Assume que todas as letras estão corretas
+    for (int i = 0; i < MAX_WORD_LENGTH - 1; i++) {
+        temp[i] = input[i];  // Copiar o valor original de input para temp
     }
 
-if(allCorrect == 1){
-    return 1;
-} else if(allCorrect == 0)
-    return 0;
+    for (int i = 0; i < MAX_WORD_LENGTH - 1; i++) {
+        if (toupper(input[i]) == toupper(output[i])) {
+            temp[i] = '1';  // Substituir por '1' quando for igual na mesma posição
+        } else {
+            temp[i] = '0';  // Temporário para indicar não igual
+            *allCorrect = 0; // Marca como falso se houver diferença
+        }
+    }
+}
 
-} 
-// Por algum motiva fica dando aviso de algo errado, deve ser porque só ha 'return' sob condições
+void validarPertence(char input[MAX_WORD_LENGTH], char output[MAX_WORD_LENGTH], char temp[MAX_WORD_LENGTH]) {
+    int freq_output[26] = {0};  // Frequência das letras em output
+    contarFrequencia(output, freq_output);
+
+    for (int i = 0; i < MAX_WORD_LENGTH - 1; i++) {
+        if (temp[i] != '1') {  // Ignorar letras já marcadas como '1'
+            char letra = toupper(input[i]);
+            if (freq_output[letra - 'A'] > 0) {
+                temp[i] = '2';  // Substituir por '2' se a letra está em output, mas em posição diferente
+                freq_output[letra - 'A']--;  // Reduzir a contagem para evitar duplicação
+            } else {
+                temp[i] = '3';  // Substituir por '3' se a letra não está em output
+            }
+        }
+    }
+}
+
+// Função para imprimir as cores
+void printColor(char colorCode) {
+    if (colorCode == '1') {
+        printf("\033[0;32m");  // Verde
+    } else if (colorCode == '2') {
+        printf("\033[0;33m");  // Amarelo
+    } else if (colorCode == '3') {
+        printf("\033[0;30m");  // Preto
+    } else {
+        printf("\033[0m");  // Resetar a cor para o padrão
+    }
+}
 
 
 int main() {
@@ -426,11 +446,11 @@ int main() {
     char input_string[10];
     char output_word[MAX_WORD_LENGTH] = ""; // Inicializando para evitar lixo de memória
     char valid_word[MAX_WORD_LENGTH];
+    char temp[MAX_WORD_LENGTH] = {0};  // Inicializa o array temp com zeros
     int found = 0;
     short int modoDeJogo;
-    int tamanho;
     int tamanhoString;
-    int escolha = 5; // MODIFIQUE ISSO ANTES DE ENTREGAR O TRABALHO
+    int allCorrect = 0;     // Verifica se todas as letras estão na posição correta
 
     if(DEVELOPER) {
         printf("\033[0;31m");
@@ -442,7 +462,7 @@ int main() {
     if(DEVELOPER){
         sleep(3);
     }
-   
+
     modoDeJogo = modoDeJogar();
     // NORMAL = '10'
     // DESENVOLVEDOR = '20'
@@ -466,19 +486,19 @@ int main() {
         free(randomWord);
     }
 
-    tamanho = strlen(output_word);
+
     printf("\n");
 
 
-        for(int j = 0; j < tamanho; j++){
+        for(int j = 0; j < MAX_WORD_LENGTH - 1; j++){
             printf("╔═══╗ "); //╚══╝ ╔═╗
         }
     printf("\n");
-        for(int j = 0; j < tamanho; j++){
+        for(int j = 0; j < MAX_WORD_LENGTH - 1; j++){
             printf("║ %d ║ ", j + 1);
         }
     printf("\n");
-        for(int j = 0; j < tamanho; j++){
+        for(int j = 0; j < MAX_WORD_LENGTH - 1; j++){
             printf("╚═══╝ "); 
         }
 
@@ -488,7 +508,7 @@ int main() {
     for (int i = 0; i < MAX_WORDS; i++) {
 
         while(1){
-            printf("\nDigite uma palavra de %d letras: ", tamanho);
+            printf("\nDigite uma palavra de %d letras: ", MAX_WORD_LENGTH - 1);
                 scanf("%s", input_string);
                 //fgets(input_word, sizeof(input_word), stdin);
 
@@ -496,15 +516,13 @@ int main() {
             printf("tamanho = %d", tamanhoString);
             if(tamanhoString < MAX_WORD_LENGTH - 1 || tamanhoString > MAX_WORD_LENGTH - 1){
                 printf("\033[0;31m");
-                printf("\nErro: A palavra precisa ter exatamente %d letras.\n\n", tamanho);
+                printf("\nErro: A palavra precisa ter exatamente %d letras.\n\n", MAX_WORD_LENGTH - 1);
                 printf("\033[0m");
                 continue;
             }
             break;      
         }
-            
 
-        
             // Devido a essa parte do codigo, a variavel input_word só é capaz de ler os 5 primeiros caracteres, não que isso seja ruim, uma vez que o parametro usado é MAX_WORD_LENGHT
             strncpy(input_word, input_string, MAX_WORD_LENGTH - 1);
             input_word[MAX_WORD_LENGTH - 1] = '\0';  // Certifique-se de que a string seja nula terminada
@@ -517,7 +535,7 @@ int main() {
         printf("\nString lida: '%s'\n", input_word);
         printf("Comprimento da string: %zu\n", strlen(input_word));
         }
-        
+
 
         FILE *file = fopen(FILE_NAME, "r");
         if (file == NULL) {
@@ -546,12 +564,11 @@ int main() {
             continue; // Se a palavra não for válida, vá para a próxima tentativa
         }
 
-        // Converte input_word e output_word para maiúsculas
-        toUpperCase(input_word);
-        toUpperCase(output_word);
+        // Converter todas as letras para maiúsculas antes da impressão
+        for (int i = 0; i < MAX_WORD_LENGTH - 1; i++) {
+            input_word[i] = toupper(input_word[i]);
+        }
 
-        // Verifica se todas as letras estão na posição correta
-        int allCorrect = 1;
 
         // Registra a variavel input_word
         char words_valid[MAX_WORDS][MAX_WORD_LENGTH];
@@ -562,43 +579,42 @@ int main() {
                  printf("(%d): %s\n",i,  words_valid[count]); // Imprime a palavra registrada
                  count++;
 
-            
+
         }
-        
+
+
+        // Valida letras iguais e substitui por '1'
+        validarIguais(input_word, output_word, temp, &allCorrect);
+        // Valida letras que pertencem a output e substitui por '2', e não pertencem por '3'
+        validarPertence(input_word, output_word, temp);
 
         printf("\nPalavra formatada com cores:\n\n");
 
-        for (int j = 0; j < tamanho; j++) {
-
-            allCorrect = validar(input_word, output_word, allCorrect, j);
-
-            // Imprime a letra na horizontal
+        // Linha superior
+        for (int j = 0; j < MAX_WORD_LENGTH - 1; j++) {
+            printColor(temp[j]);  // Definir a cor com base no valor de temp
             printf("╔═══╗ ");
         }
+        printf("\033[0m\n");  // Resetar a cor após a linha superior
 
-        printf("\n");
-
-        for (int j = 0; j < tamanho; j++) {
-
-            validar(input_word, output_word, allCorrect, j);
-
+        // Linha central com letras
+        for (int j = 0; j < MAX_WORD_LENGTH - 1; j++) {
+            printColor(temp[j]);  // Definir a cor com base no valor de temp
             printf("║ %c ║ ", input_word[j]);
         }
+        printf("\033[0m\n");  // Resetar a cor após a linha central
 
-        printf("\n");
-
-        for (int j = 0; j < tamanho; j++) {
-
-            validar(input_word, output_word, allCorrect, j);
-
+        // Linha inferior
+        for (int j = 0; j < MAX_WORD_LENGTH - 1; j++) {
+            printColor(temp[j]);  // Definir a cor com base no valor de temp
             printf("╚═══╝ ");
         }
+        printf("\033[0m\n");  // Resetar a cor após a linha inferior
 
-        printf("\033[0m"); // Reseta a cor
 
         printf("\n");
 
-        if (allCorrect == 1) {
+        if (allCorrect) {
             imagem(3);
             break;  // Sai do loop principal, pois o jogador ganhou
         }
