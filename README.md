@@ -19,7 +19,7 @@
 ### IMPORTANTE
 - [ ] ~~Fazer o programa suportar 2 arquivos (vou ver se suportar outro alem de .txt)~~
 - [x] Incrementar uma lista (array/matriz) para registrar a variavel "input_word". Para que a cada loop, todas as palavras sejam impressas
-- [ ] Criar um loop para que todas as palavras impressas sejam validadas 
+- [x] Criar um loop para que todas as palavras impressas sejam validadas 
       
        > CaioPrimoDev
 
