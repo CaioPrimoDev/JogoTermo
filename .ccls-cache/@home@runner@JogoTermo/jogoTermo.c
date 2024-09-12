@@ -193,78 +193,92 @@ void iniciar(){
     printf("                                 ╚═══════════════════════════════════════════════════════════════════╝\n");
     printf("\033[0m");                                            
 
-    printf("\033[0;36m");
-      printf("\nJogo produzio por:");
-    printf("\033[0;31m");
-      printf("\n> Caio Nunes Primo");
+printf("\033[0;36m");
+ printf("\nJogo produzio por:");
+  printf("\033[0;31m");
+   printf("\n> Caio Nunes Primo");
     printf("\033[0;35m");
-      printf("\n> Pedro Rocha");
-    printf("\033[0;33m");
-      printf("\n> Eder Joe");
-    printf("\033[0;32m");
-      printf("\n> João Victor");
-    printf("\033[0;33m");
-      printf("\n> Bruno Marques\n\n");
-    printf("\033[0m");
-
+     printf("\n> Pedro Rocha");
+      printf("\033[0;33m");
+       printf("\n> Eder Joe");
+        printf("\033[0;32m");
+         printf("\n> João Victor");
+          printf("\033[0;33m");
+           printf("\n> Bruno Marques\n\n");
+            printf("\033[0m");
 }
 
 // Tela de seleção de modo de jogo
 int modoDeJogar() {
-
     int opcao;
 
-    if(DEVELOPER != 1){
-    iniciar();
-
-      sleep(5);  // Pausa a execução por 5 segundos
+    // Se não estiver no modo de desenvolvedor, inicia e faz uma pausa
+    if (DEVELOPER != MODO_DESENVOLVEDOR) {
+        iniciar();
+        sleep(5);  // Pausa a execução por 5 segundos
     }
 
     system("clear");
 
-    if(DEVELOPER != 1)
-    imagem(1);
+    // Se não estiver no modo de desenvolvedor, exibe a imagem inicial
+    if (DEVELOPER != MODO_DESENVOLVEDOR) {
+        imagem(1);
+    }
 
-    printf("\n\nRegras:\n1. Digite com o caps lock desativado.");
-    printf("\n2. Cada palavra deve conter 5 letras.");
-    printf("\n3. Você só terá 5 chances.");
-    printf("\n4. As palavras não tem acento.");
+    // Exibindo as regras do jogo
+    printf("\n\nRegras:\n");
+    printf("1. Digite com o caps lock desativado.\n");
+    printf("2. Cada palavra deve conter 5 letras.\n");
+    printf("3. Você só terá 5 chances.\n");
+    printf("4. As palavras não têm acento.\n");
 
-    printf("\033[0;36m");
-    printf("\n\nIniciando jogo...");
-    printf("\033[0m");
+    // Mensagem de início do jogo
+    printf("\033[0;36m"); // Define a cor para ciano
+    printf("\n\nIniciando jogo...\n");
+    printf("\033[0m"); // Reseta a cor
 
-    if(DEVELOPER != 1)
-    sleep(7);  // Pausa a execução por 5 segundos
+    // Se não estiver no modo de desenvolvedor, faz uma pausa antes de limpar a tela
+    if (DEVELOPER != MODO_DESENVOLVEDOR) {
+        sleep(7);  // Pausa a execução por 7 segundos
+    }
     system("clear");
 
-    if(DEVELOPER != 1)
-    imagem(2);
+    // Se não estiver no modo de desenvolvedor, exibe a imagem final
+    if (DEVELOPER != MODO_DESENVOLVEDOR) {
+        imagem(2);
+    }
 
-    while(1){
-       printf("\nSelecione o modo de jogo: \n1 - Jogo Normal\n2 - Modo Desenvolvedor\n... ");
-       if(scanf("%d", &opcao) != 1 || opcao < 1 || opcao > 2){
-          printf("\033[0;31m");
-          printf("\n\nErro: Selecione uma opção válida\n");
-          printf("\033[0m"); // Reseta a cor
-          while(getchar() != '\n')
-          continue;
-       } else
-           break;
+    // Loop para selecionar o modo de jogo
+    while (1) {
+        printf("\nSelecione o modo de jogo:\n");
+        printf("1 - Jogo Normal\n");
+        printf("2 - Modo Desenvolvedor\n");
+        printf("Escolha: ");
+
+        // Validação da entrada do usuário
+        if (scanf("%d", &opcao) != 1 || opcao < 1 || opcao > 2) {
+            printf("\033[0;31m"); // Define a cor para vermelho
+            printf("\n\nErro: Selecione uma opção válida\n");
+            printf("\033[0m"); // Reseta a cor
+            while (getchar() != '\n');  // Limpa o buffer de entrada
+        } else {
+            break;
+        }
     }
 
     system("clear");
 
-
-
-    if(opcao == 2){
-        return 20; // DESENVOLVEDOR
-    }else if(opcao == 1){
-        if(DEVELOPER != 1)
-        loading();
-        return 10; // NORMAL
+    // Retorna o modo de jogo selecionado
+    if (opcao == 2) {
+        return 20;  // Modo Desenvolvedor
+    } else if (opcao == 1) {
+        if (DEVELOPER != MODO_DESENVOLVEDOR) {
+            loading();
+        }
+        return 10;  // Modo Normal
     }
 
+    return -1; // Retorna -1 em caso de erro inesperado
 }
 
 // Tela de Fim de jogo (perdeu)

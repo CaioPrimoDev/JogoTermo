@@ -9,7 +9,7 @@
 
 //-------------------------------||
 // '1' para "EM DESENVOLVIMENTO" || 
-#define DEVELOPER 1 
+#define MODO_DESENVOLVEDOR 1 
 //   '0' para " JOGO NORMAL "    ||
 //-------------------------------||
 
@@ -193,78 +193,92 @@ void iniciar(){
     printf("                                 ╚═══════════════════════════════════════════════════════════════════╝\n");
     printf("\033[0m");                                            
 
-    printf("\033[0;36m");
-      printf("\nJogo produzio por:");
-    printf("\033[0;31m");
-      printf("\n> Caio Nunes Primo");
+printf("\033[0;36m");
+ printf("\nJogo produzio por:");
+  printf("\033[0;31m");
+   printf("\n> Caio Nunes Primo");
     printf("\033[0;35m");
-      printf("\n> Pedro Rocha");
-    printf("\033[0;33m");
-      printf("\n> Eder Joe");
-    printf("\033[0;32m");
-      printf("\n> João Victor");
-    printf("\033[0;33m");
-      printf("\n> Bruno Marques\n\n");
-    printf("\033[0m");
-
+     printf("\n> Pedro Rocha");
+      printf("\033[0;33m");
+       printf("\n> Eder Joe");
+        printf("\033[0;32m");
+         printf("\n> João Victor");
+          printf("\033[0;33m");
+           printf("\n> Bruno Marques\n\n");
+            printf("\033[0m");
 }
 
 // Tela de seleção de modo de jogo
 int modoDeJogar() {
-
     int opcao;
 
-    if(DEVELOPER != 1){
-    iniciar();
-
-      sleep(5);  // Pausa a execução por 5 segundos
+    // Se não estiver no modo de desenvolvedor, inicia e faz uma pausa
+    if (MODO_DESENVOLVEDOR != 1) {
+        iniciar();
+        sleep(5);  // Pausa a execução por 5 segundos
     }
 
     system("clear");
 
-    if(DEVELOPER != 1)
-    imagem(1);
+    // Se não estiver no modo de desenvolvedor, exibe a imagem inicial
+    if (MODO_DESENVOLVEDOR != 1) {
+        imagem(1);
+    }
 
-    printf("\n\nRegras:\n1. Digite com o caps lock desativado.");
-    printf("\n2. Cada palavra deve conter 5 letras.");
-    printf("\n3. Você só terá 5 chances.");
-    printf("\n4. As palavras não tem acento.");
+    // Exibindo as regras do jogo
+    printf("\n\nRegras:\n");
+    printf("1. Digite com o caps lock desativado.\n");
+    printf("2. Cada palavra deve conter 5 letras.\n");
+    printf("3. Você só terá 5 chances.\n");
+    printf("4. As palavras não têm acento.\n");
 
-    printf("\033[0;36m");
-    printf("\n\nIniciando jogo...");
-    printf("\033[0m");
+    // Mensagem de início do jogo
+    printf("\033[0;36m"); // Define a cor para ciano
+    printf("\n\nIniciando jogo...\n");
+    printf("\033[0m"); // Reseta a cor
 
-    if(DEVELOPER != 1)
-    sleep(7);  // Pausa a execução por 5 segundos
+    // Se não estiver no modo de desenvolvedor, faz uma pausa antes de limpar a tela
+        if (MODO_DESENVOLVEDOR != 1) {
+        sleep(7);  // Pausa a execução por 7 segundos
+    }
     system("clear");
 
-    if(DEVELOPER != 1)
-    imagem(2);
+    // Se não estiver no modo de desenvolvedor, exibe a imagem final
+        if (MODO_DESENVOLVEDOR != 1) {
+        imagem(2);
+    }
 
-    while(1){
-       printf("\nSelecione o modo de jogo: \n1 - Jogo Normal\n2 - Modo Desenvolvedor\n... ");
-       if(scanf("%d", &opcao) != 1 || opcao < 1 || opcao > 2){
-          printf("\033[0;31m");
-          printf("\n\nErro: Selecione uma opção válida\n");
-          printf("\033[0m"); // Reseta a cor
-          while(getchar() != '\n')
-          continue;
-       } else
-           break;
+    // Loop para selecionar o modo de jogo
+    while (1) {
+        printf("\nSelecione o modo de jogo:\n");
+        printf("1 - Jogo Normal\n");
+        printf("2 - Modo Desenvolvedor\n");
+        printf("Escolha: ");
+
+        // Validação da entrada do usuário
+        if (scanf("%d", &opcao) != 1 || opcao < 1 || opcao > 2) {
+            printf("\033[0;31m"); // Define a cor para vermelho
+            printf("\n\nErro: Selecione uma opção válida\n");
+            printf("\033[0m"); // Reseta a cor
+            while (getchar() != '\n');  // Limpa o buffer de entrada
+        } else {
+            break;
+        }
     }
 
     system("clear");
 
-
-
-    if(opcao == 2){
-        return 20; // DESENVOLVEDOR
-    }else if(opcao == 1){
-        if(DEVELOPER != 1)
-        loading();
-        return 10; // NORMAL
+    // Retorna o modo de jogo selecionado
+    if (opcao == 2) {
+        return 20;  // Modo Desenvolvedor
+    } else if (opcao == 1) {
+            if (MODO_DESENVOLVEDOR != 1) {
+            loading();
+        }
+        return 10;  // Modo Normal
     }
 
+    return -1; // Retorna -1 em caso de erro inesperado
 }
 
 // Tela de Fim de jogo (perdeu)
@@ -348,37 +362,38 @@ int countWordsInFile(const char *filename) {
     if (file == NULL) {
         perror("Erro ao abrir o arquivo");
         return -1;
-    }
+         }
 
     int count = 0;
     char word[MAX_WORD_LENGTH];
 
     while (fscanf(file, "%s", word) != EOF) {
         count++;
-    }
+      }
 
     fclose(file);
     return count;
-}
-
+  }
 // Função para selecionar uma palavra aleatória
 char *getRandomWordFromFile(const char *filename, int wordCount) {
-    FILE *file = fopen(filename, "r");
+   
+        FILE *file = fopen(filename, "r");
+    
     if (file == NULL) {
         perror("Erro ao abrir o arquivo");
         return NULL;
     }
 
-    int randomIndex = rand() % wordCount; // Gera um índice aleatório
-    char *randomWord = (char *)malloc(MAX_WORD_LENGTH * sizeof(char));
-    if (randomWord == NULL) {
-        perror("Erro ao alocar memória");
-        return NULL;
-    }
+        int randomIndex = rand() % wordCount; // Gera um índice aleatório
+        char *randomWord = (char *)malloc(MAX_WORD_LENGTH * sizeof(char));
+        if (randomWord == NULL) {
+            perror("Erro ao alocar memória");
+            return NULL;
+        }
 
-    for (int i = 0; i <= randomIndex; i++) {
-        fscanf(file, "%5s", randomWord); // %5s para garantir que no máximo 5 caracteres sejam lidos
-    }
+            for (int i = 0; i <= randomIndex; i++) {
+                fscanf(file, "%5s", randomWord); // %5s para garantir que no máximo 5 caracteres sejam lidos
+            }
 
     fclose(file);
     return randomWord;
@@ -389,17 +404,17 @@ void contarFrequencia(char word[MAX_WORD_LENGTH], int freq[26]) {
     for (int i = 0; i < 26; i++) {
         freq[i] = 0; // Inicializa o array de frequências
     }
-    for (int i = 0; i < MAX_WORD_LENGTH - 1; i++) {
-        if (isalpha(word[i])) {
-            freq[toupper(word[i]) - 'A']++;
-        }
+        for (int i = 0; i < MAX_WORD_LENGTH - 1; i++) {
+            if (isalpha(word[i])) {
+                freq[toupper(word[i]) - 'A']++;
+            }
     }
 }
 
 void validarIguais(char input[MAX_WORD_LENGTH], char output[MAX_WORD_LENGTH], char temp[MAX_WORD_LENGTH], int *allCorrect) {
     *allCorrect = 1; // Assume que todas as letras estão corretas
-    for (int i = 0; i < MAX_WORD_LENGTH - 1; i++) {
-        temp[i] = input[i];  // Copiar o valor original de input para temp
+        for (int i = 0; i < MAX_WORD_LENGTH - 1; i++) {
+            temp[i] = input[i];  // Copiar o valor original de input para temp
     }
 
     for (int i = 0; i < MAX_WORD_LENGTH - 1; i++) {
@@ -431,14 +446,18 @@ void validarPertence(char input[MAX_WORD_LENGTH], char output[MAX_WORD_LENGTH], 
 
 // Função para imprimir as cores
 void printColor(char colorCode) {
-    if (colorCode == '1') {
-        printf("\033[0;32m");  // Verde
-    } else if (colorCode == '2') {
-        printf("\033[0;33m");  // Amarelo
+   
+if (colorCode == '1') {
+  printf("\033[0;32m");  // Verde
+    
+  } else if (colorCode == '2') {
+     printf("\033[0;33m");  // Amarelo
+    
     } else if (colorCode == '3') {
-        printf("\033[0;30m");  // Preto
-    } else {
-        printf("\033[0m");  // Resetar a cor para o padrão
+       printf("\033[0;30m");  // Preto
+    
+        } else {
+         printf("\033[0m");  // Resetar a cor para o padrão
     }
 }
 
@@ -457,14 +476,15 @@ int main() {
     int tamanhoString;
     int allCorrect = 0;     // Verifica se todas as letras estão na posição correta
 
-    if (DEVELOPER) {
-        printf("\033[0;31m");
-        printf("\n- Apagar essa configuração depois");
-        printf("\nJogo funcionando sob condições de Desenvolvimento\n");
+    if (MODO_DESENVOLVEDOR) {
+        
+            printf("\033[0;31m");
+          printf("\n- Apagar essa configuração depois");
+         printf("\nJogo funcionando sob condições de Desenvolvimento\n");
         printf("\033[0m");
     }
 
-    if (DEVELOPER) {
+    if (MODO_DESENVOLVEDOR) {
         sleep(3);
     }
 
@@ -482,9 +502,13 @@ int main() {
     }
 
     char *randomWord = getRandomWordFromFile(filename, wordCount);
+   
     if (randomWord != NULL) {
+        
         strncpy(output_word, randomWord, MAX_WORD_LENGTH - 1); // Garantir que não ocorra overflow
+        
         output_word[MAX_WORD_LENGTH - 1] = '\0'; // Garantir a terminação nula
+        
         if (modoDeJogo == 20) {
             printf("Palavra aleatória selecionada: %s\n", output_word);
         }
@@ -565,8 +589,6 @@ int main() {
             continue; // Se a palavra não for válida, vá para a próxima tentativa
         }
 
-        
-
         // Registra a variável input_word
         char words_valid[MAX_WORDS][MAX_WORD_LENGTH];
         for (int i = 0; i < wordIndex; i++) {
@@ -575,9 +597,7 @@ int main() {
         }
         printf("%d", wordIndex);
 
-        
-
-        if (DEVELOPER) {
+        if (MODO_DESENVOLVEDOR) {
             printf("\nPalavra formatada com cores:\n\n");
         }
 
@@ -590,14 +610,11 @@ int main() {
                 input_word[i] = toupper(input_word[i]);
             }
             
-
             // Valida letras iguais e substitui por '1'
             validarIguais(input_word, output_word, temp, &allCorrect);
+           
             // Valida letras que pertencem a output e substitui por '2', e não pertencem por '3'
             validarPertence(input_word, output_word, temp);
-
-
-            
 
             // Linha superior
             for (int j = 0; j < MAX_WORD_LENGTH - 1; j++) {
