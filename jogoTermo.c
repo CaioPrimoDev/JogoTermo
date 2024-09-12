@@ -354,6 +354,12 @@ void youLoser(char output_word[MAX_WORD_LENGTH]){
   printf("\nVocê atingiu o limite de tentativas. A palavra era '%s'.\n", output_word);
 }
 
+void imprimirVazio(int num){
+    for(int i = 0; i < num; i++){
+        printf(" ");
+    }
+}
+
 // ######################### Funções principais #########################
 
 // Função para contar o número de palavras no arquivo
@@ -616,6 +622,9 @@ int main() {
             // Valida letras que pertencem a output e substitui por '2', e não pertencem por '3'
             validarPertence(input_word, output_word, temp);
 
+    
+            imprimirVazio(20);
+            
             // Linha superior
             for (int j = 0; j < MAX_WORD_LENGTH - 1; j++) {
                 printColor(temp[j]);
@@ -623,13 +632,15 @@ int main() {
             }
             printf("\033[0m\n");
 
+            imprimirVazio(20);
             // Linha central com letras
             for (int j = 0; j < MAX_WORD_LENGTH - 1; j++) {
-                printColor(temp[j]);
+                char letra;
                 printf("║ %c ║ ", input_word[j]);
             }
             printf("\033[0m\n");
 
+            imprimirVazio(20);
             // Linha inferior
             for (int j = 0; j < MAX_WORD_LENGTH - 1; j++) {
                 printColor(temp[j]);
