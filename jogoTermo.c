@@ -5,6 +5,7 @@
 #include <ctype.h>  // Para a função toupper()
 #include <malloc.h>
 #include <unistd.h>
+#include <locale.h>
 
 
 //-------------------------------||
@@ -208,79 +209,6 @@ printf("\033[0;36m");
             printf("\033[0m");
 }
 
-// Tela de seleção de modo de jogo
-int modoDeJogar() {
-    int opcao;
-
-    // Se não estiver no modo de desenvolvedor, inicia e faz uma pausa
-    if (MODO_DESENVOLVEDOR != 1) {
-        iniciar();
-        sleep(5);  // Pausa a execução por 5 segundos
-    }
-
-    system("clear");
-
-    // Se não estiver no modo de desenvolvedor, exibe a imagem inicial
-    if (MODO_DESENVOLVEDOR != 1) {
-        imagem(1);
-    }
-
-    // Exibindo as regras do jogo
-    printf("\n\nRegras:\n");
-    printf("1. Digite com o caps lock desativado.\n");
-    printf("2. Cada palavra deve conter 5 letras.\n");
-    printf("3. Você só terá 5 chances.\n");
-    printf("4. As palavras não têm acento.\n");
-
-    // Mensagem de início do jogo
-    printf("\033[0;36m"); // Define a cor para ciano
-    printf("\n\nIniciando jogo...\n");
-    printf("\033[0m"); // Reseta a cor
-
-    // Se não estiver no modo de desenvolvedor, faz uma pausa antes de limpar a tela
-        if (MODO_DESENVOLVEDOR != 1) {
-        sleep(7);  // Pausa a execução por 7 segundos
-    }
-    system("clear");
-
-    // Se não estiver no modo de desenvolvedor, exibe a imagem final
-        if (MODO_DESENVOLVEDOR != 1) {
-        imagem(2);
-    }
-
-    // Loop para selecionar o modo de jogo
-    while (1) {
-        printf("\nSelecione o modo de jogo:\n");
-        printf("1 - Jogo Normal\n");
-        printf("2 - Modo Desenvolvedor\n");
-        printf("Escolha: ");
-
-        // Validação da entrada do usuário
-        if (scanf("%d", &opcao) != 1 || opcao < 1 || opcao > 2) {
-            printf("\033[0;31m"); // Define a cor para vermelho
-            printf("\n\nErro: Selecione uma opção válida\n");
-            printf("\033[0m"); // Reseta a cor
-            while (getchar() != '\n');  // Limpa o buffer de entrada
-        } else {
-            break;
-        }
-    }
-
-    system("clear");
-
-    // Retorna o modo de jogo selecionado
-    if (opcao == 2) {
-        return 20;  // Modo Desenvolvedor
-    } else if (opcao == 1) {
-            if (MODO_DESENVOLVEDOR != 1) {
-            loading();
-        }
-        return 10;  // Modo Normal
-    }
-
-    return -1; // Retorna -1 em caso de erro inesperado
-}
-
 // Tela de Fim de jogo (perdeu)
 void youLoser(char output_word[MAX_WORD_LENGTH]){
 
@@ -467,9 +395,129 @@ if (colorCode == '1') {
     }
 }
 
+void menu(){
+    char exemplo[5] = {"41423"};
+    char input[5] = {"jogar"};
+
+    // Converter todas as letras para maiúsculas antes da impressão
+    for (int i = 0; i < MAX_WORD_LENGTH - 1; i++) {
+        input[i] = toupper(input[i]);
+    }
+
+    imprimirVazio(20);
+
+    // Linha superior
+    for (int j = 0; j < MAX_WORD_LENGTH - 1; j++) {
+        printColor(exemplo[j]);
+        printf("╔═══╗ ");
+    }
+    printf("\033[0m\n");
+
+    imprimirVazio(20);
+    // Linha central com letras
+    for (int j = 0; j < MAX_WORD_LENGTH - 1; j++) {
+        printColor(exemplo[j]);
+        printf("║ %c ║ ", input[j]);
+    }
+    printf("\033[0m\n");
+
+    imprimirVazio(20);
+    // Linha inferior
+    for (int j = 0; j < MAX_WORD_LENGTH - 1; j++) {
+        printColor(exemplo[j]);
+        printf("╚═══╝ ");
+    }
+    printf("\033[0m\n");
+
+    printf("\n");
+    printf("\033[32mVERDE > Caso a letra pertença à palavra, e esteja na mesma posição\033[0m\n\n");
+    printf("\033[33mAMARELO > Caso a letra pertença, mas em uma posição diferente \033[0m\n\n");
+    printf("\033[0;30m");
+    printf("PRETO > Caso a letra esteja errada");
+    printf("\033[0;0m");
+
+    //PRETO:  printf("\033[30m");
+    //Verde: printf("\033[0;32m");
+    //Amarelo: printf("\033[0;33m");
+    
+}
+
+// Tela de seleção de modo de jogo
+int modoDeJogar() {
+    int opcao;
+
+    // Se não estiver no modo de desenvolvedor, inicia e faz uma pausa
+    if (MODO_DESENVOLVEDOR != 1) {
+        iniciar();
+        sleep(5);  // Pausa a execução por 5 segundos
+    }
+
+    system("clear");
+
+    menu();
+    // Exibindo as regras do jogo
+    printf("\n\nRegras:\n");
+    printf("1. Digite com o caps lock desativado.\n");
+    printf("2. Cada palavra deve conter 5 letras.\n");
+    printf("3. Você só terá 5 chances.\n");
+    printf("4. As palavras não têm acento.\n");
+    
+
+    // Se não estiver no modo de desenvolvedor, faz uma pausa antes de limpar a tela
+        if (MODO_DESENVOLVEDOR != 1) {
+            printf("\nDigite ENTER para continuar...");
+            getchar();  // Espera o usuário pressionar Enter
+        //sleep(7);  // Pausa a execução por 7 segundos
+    }
+    system("clear");
+
+    // Mensagem de início do jogo
+    printf("\033[0;36m"); // Define a cor para ciano
+    printf("\n\nIniciando jogo...\n");
+    printf("\033[0m"); // Reseta a cor
+    
+    // Se não estiver no modo de desenvolvedor, exibe a imagem final
+        if (MODO_DESENVOLVEDOR != 1) {
+        imagem(2);
+    }
+
+    // Loop para selecionar o modo de jogo
+    while (1) {
+        printf("\nSelecione o modo de jogo:\n");
+        printf("1 - Jogo Normal\n");
+        printf("2 - Modo Desenvolvedor\n");
+        printf("Escolha: ");
+
+        // Validação da entrada do usuário
+        if (scanf("%d", &opcao) != 1 || opcao < 1 || opcao > 2) {
+            printf("\033[0;31m"); // Define a cor para vermelho
+            printf("\n\nErro: Selecione uma opção válida\n");
+            printf("\033[0m"); // Reseta a cor
+            while (getchar() != '\n');  // Limpa o buffer de entrada
+        } else {
+            break;
+        }
+    }
+
+    system("clear");
+
+    // Retorna o modo de jogo selecionado
+    if (opcao == 2) {
+        return 20;  // Modo Desenvolvedor
+    } else if (opcao == 1) {
+            if (MODO_DESENVOLVEDOR != 1) {
+            loading();
+        }
+        return 10;  // Modo Normal
+    }
+
+    return -1; // Retorna -1 em caso de erro inesperado
+}
 
 int main() {
-    // Iniciando o github
+    
+    // Define o locale para Português Brasileiro com suporte a UTF-8
+    setlocale(LC_ALL, "pt_BR.UTF-8");
 
     char words[MAX_WORDS][MAX_WORD_LENGTH];
     char input_word[MAX_WORD_LENGTH] = "";
@@ -622,9 +670,13 @@ int main() {
             // Valida letras que pertencem a output e substitui por '2', e não pertencem por '3'
             validarPertence(input_word, output_word, temp);
 
-    
-            imprimirVazio(20);
+            int vazio1;
+            if(wordIndex == 0){
+                vazio1 = 20;
+            }
             
+            
+            imprimirVazio(vazio1 + 1);
             // Linha superior
             for (int j = 0; j < MAX_WORD_LENGTH - 1; j++) {
                 printColor(temp[j]);
@@ -632,15 +684,17 @@ int main() {
             }
             printf("\033[0m\n");
 
-            imprimirVazio(20);
+          
+            imprimirVazio(21);
             // Linha central com letras
             for (int j = 0; j < MAX_WORD_LENGTH - 1; j++) {
-                char letra;
+                printColor(temp[j]);
                 printf("║ %c ║ ", input_word[j]);
             }
             printf("\033[0m\n");
 
-            imprimirVazio(20);
+        
+            imprimirVazio(21);
             // Linha inferior
             for (int j = 0; j < MAX_WORD_LENGTH - 1; j++) {
                 printColor(temp[j]);
