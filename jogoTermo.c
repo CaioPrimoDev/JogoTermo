@@ -14,7 +14,19 @@
 //   '0' para " JOGO NORMAL "    ||
 //-------------------------------||
 
-#define MAX_WORDS 5 
+// Colors
+#define RESET   "\033[0m"
+#define RED     "\033[31m"
+#define GREEN   "\033[32m"
+#define YELLOW  "\033[33m"
+#define BLUE    "\033[34m"
+#define MAGENTA "\033[35m"
+#define CYAN    "\033[36m"
+#define WHITE   "\033[37m"
+#define BLACK   "\033[30m"
+// ##########################
+
+#define MAX_WORDS 6 
 #define MAX_WORD_LENGTH 6  
 // Incluindo o caractere nulo
 
@@ -219,7 +231,7 @@ void youLoser(char output_word[MAX_WORD_LENGTH]){
 
   sleep(1);
   system("clear");
-  printf("\033[0;31m");
+  printf(RED);
   printf("\n");
   printf("╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
   printf("║░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░║\n");
@@ -389,16 +401,16 @@ void validarPertence(char input[MAX_WORD_LENGTH], char output[MAX_WORD_LENGTH], 
 void printColor(char colorCode) {
    
 if (colorCode == '1') {
-  printf("\033[0;32m");  // Verde
+  printf(GREEN);  // Verde
     
   } else if (colorCode == '2') {
-     printf("\033[0;33m");  // Amarelo
+     printf(YELLOW);  // Amarelo
     
     } else if (colorCode == '3') {
-       printf("\033[0;30m");  // Preto
+       printf(BLACK);  // Preto
     
         } else {
-         printf("\033[0m");  // Resetar a cor para o padrão
+         printf(RESET);  // Resetar a cor para o padrão
     }
 }
 
@@ -443,10 +455,6 @@ void menu(){
     printf("PRETO > Caso a letra esteja errada");
     printf("\033[0;0m");
 
-    //PRETO:  printf("\033[30m");
-    //Verde: printf("\033[0;32m");
-    //Amarelo: printf("\033[0;33m");
-    
 }
 
 // Tela de seleção de modo de jogo
@@ -541,10 +549,10 @@ int main() {
 
     if (MODO_DESENVOLVEDOR) {
         
-            printf("\033[0;31m");
+            printf(RED);
           printf("\n- Apagar essa configuração depois");
          printf("\nJogo funcionando sob condições de Desenvolvimento\n");
-        printf("\033[0m");
+        printf(RESET);
     }
 
     if (MODO_DESENVOLVEDOR) {
@@ -626,8 +634,9 @@ int main() {
                         printColor(temp[j]);
                         printf("╔═══╗ ");
                     }
-                    printf("\033[0m\n");
+                    printf(RESET"\n");
 
+                    
 
                     imprimirVazio(21);
                     // Linha central com letras
@@ -635,7 +644,7 @@ int main() {
                         printColor(temp[j]);
                         printf("║ %c ║ ", input_word[j]);
                     }
-                    printf("\033[0m\n");
+                    printf(RESET"\n");
 
 
                     imprimirVazio(21);
@@ -644,7 +653,8 @@ int main() {
                         printColor(temp[j]);
                         printf("╚═══╝ ");
                     }
-                    printf("\033[0m\n");
+                    printf(RESET"\n");
+
                 }
 
                 printf("\n");
@@ -659,9 +669,10 @@ int main() {
 
             
             if (tamanhoString != MAX_WORD_LENGTH - 1) {
-                printf("\033[0;31m");
+                printf(RED);
                 printf("\nErro: A palavra precisa ter exatamente %d letras.\n\n", MAX_WORD_LENGTH - 1);
-                printf("\033[0m");
+                printf(RESET"\n");
+
                 continue;
             }
             break;
@@ -774,9 +785,10 @@ int main() {
         system("clear");
         
 
+        if(wordIndex == MAX_WORDS){
+           printf("Processando....");
+        }
         if (wordIndex == MAX_WORDS) {
-            printf("Processando....");
-            sleep(1);
             youLoser(output_word);
         }
     }
