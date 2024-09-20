@@ -1063,10 +1063,12 @@ enfim
 entra
 entre
 envio
-égua
+circo
+egua
 exame
 exato
-Excel
+excel
+cerco
 fenda
 filho
 funda
